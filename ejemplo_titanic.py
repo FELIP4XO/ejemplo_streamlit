@@ -18,13 +18,13 @@ with st.sidebar:
     
     # Crea un control deslizante (slider) que permite al usuario seleccionar un número de bins
     # en el rango de 0 a 10, con un valor predeterminado de 2.
-    div = st.slider('Número de bins:', 0, 10, 2)
+    div = st.slider('Número de bins:', 0, 100, 2)
     
     # Muestra el valor actual del slider en la barra lateral.
     st.write("Bins=", div)
 
 # Desplegamos un histograma con los datos del eje X
-fig, ax = plt.subplots(1, 2, figsize=(10, 3))
+fig, ax = plt.subplots(1, 2, figsize=(100, 3))
 ax[0].hist(df["Age"], bins=div)
 ax[0].set_xlabel("Edad")
 ax[0].set_ylabel("Frecuencia")
