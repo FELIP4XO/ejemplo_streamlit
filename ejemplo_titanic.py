@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
-color = st.color_picker("Pick A Color", "#00f900")
+colur = st.color_picker("Pick A Color", "#00f900")
 st.write("color", color)
 
 # Carga el archivo CSV "database_titanic.csv" en un DataFrame de pandas.
@@ -28,7 +28,7 @@ with st.sidebar:
 
 # Desplegamos un histograma con los datos del eje X
 fig, ax = plt.subplots(1, 2, figsize=(10, 3))
-ax[0].hist(df["Age"], bins=div, color='color')
+ax[0].hist(df["Age"], bins=div, color='colur')
 ax[0].set_xlabel("Edad")
 ax[0].set_ylabel("Frecuencia")
 ax[0].set_title("Histograma de edades")
