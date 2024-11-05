@@ -8,7 +8,7 @@ st.title("Visualización de Datos Sísmicos")
 st.write("Esta aplicación te permite explorar datos sísmicos de un archivo CSV.")
 
 fig, ax = plt.subplots()
-ax.scatter(datos_sismicos["Depth"], datos_sismicos["Magnitude"]) 
+ax.scatter(datos_sismicos["Magnitude"], datos_sismicos["Depth"]) 
 ax.set_xlabel("Magnitud")  
 ax.set_ylabel("Profundidad")
 ax.set_title("Profundidad vs Magnitud")
