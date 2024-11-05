@@ -11,7 +11,7 @@ fig, ax = plt.subplots()
 ax.scatter(datos_sismicos["Magnitude"], datos_sismicos["Depth"]) 
 ax.set_xlabel("Magnitud")  
 ax.set_ylabel("Profundidad")
-ax.set_title("Profundidad vs Magnitude")
+ax.set_title("Profundidad vs Magnitud")
 
 st.pyplot(fig)
 
