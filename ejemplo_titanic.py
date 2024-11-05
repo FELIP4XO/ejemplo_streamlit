@@ -13,6 +13,8 @@ ax.set_xlabel('Magnitud')
 ax.set_ylabel('Profundidad')
 ax.set_title('Profundidad vs Magnitud')
 
+st.pyplot(fig)
+
 columnas_numericas = datos_sismicos.select_dtypes(include=['number']).columns
 
 for columna in columnas_numericas:
