@@ -23,7 +23,7 @@ with st.sidebar:
 for columna in columnas_numericas:
     if st.button(f'Grafico de barra de {columna}'):
         fig, ax = plt.subplots()
-        ax.bar(datos_sismicos.index, datos_sismicos[columna])
+        ax.bar(datos_sismicos.index, datos_sismicos[columna], color = color_grafico)
         ax.set_xlabel('Índice')
         ax.set_ylabel(columna)
         ax.set_title(f'grafico de barras de {columna}')
