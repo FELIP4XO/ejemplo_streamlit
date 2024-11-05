@@ -15,7 +15,7 @@ ax.set_title('Profundidad vs Magnitud')
 
 columnas_numericas = datos_sismicos.select_dtypes(include=['number']).columns
 
-for columna in comnas_numericas:
+for columna in columnas_numericas:
     if st.button(f'Grafico de barra de {columna}'):
         fig, ax = plt.subplots()
         ax.bar(datos_sismicos.index, datos_sismicos[columna])
