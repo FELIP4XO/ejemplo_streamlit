@@ -2,6 +2,9 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 
+color = st.color_picker("Pick A Color", "#00f900")
+st.write("color", color)
+
 # Carga el archivo CSV "database_titanic.csv" en un DataFrame de pandas.
 df = pd.read_csv("database_titanic.csv")
 
