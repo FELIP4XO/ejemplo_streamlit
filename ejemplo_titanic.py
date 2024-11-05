@@ -28,7 +28,7 @@ with st.sidebar:
 
 # Desplegamos un histograma con los datos del eje X
 fig, ax = plt.subplots(1, 2, figsize=(10, 3))
-ax[0].hist(df["Age"], bins=div)
+ax[0].hist(df["Age"], bins=div, color='color')
 ax[0].set_xlabel("Edad")
 ax[0].set_ylabel("Frecuencia")
 ax[0].set_title("Histograma de edades")
