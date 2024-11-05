@@ -24,7 +24,7 @@ with st.sidebar:
     st.write("Bins=", div)
 
 # Desplegamos un histograma con los datos del eje X
-fig, ax = plt.subplots(1, 2, figsize=(100, 3))
+fig, ax = plt.subplots(1, 2, figsize=(10, 3))
 ax[0].hist(df["Age"], bins=div)
 ax[0].set_xlabel("Edad")
 ax[0].set_ylabel("Frecuencia")
