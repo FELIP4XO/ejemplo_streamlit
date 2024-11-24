@@ -23,17 +23,17 @@ tipo_grafico = st.sidebar.selectbox(
 
 # Filtrar columnas compatibles
 if tipo_grafico in ["Scatter", "Line", "Bar", "Barh"]:
-    x_columnas = columnas_numericas + columnas_categoricas  # Eje X puede ser numérico o categórico
-    y_columnas = columnas_numericas  # Eje Y solo numérico
+    x_columnas = columnas_numericas  # Eje X solo numérico
+    y_columnas = columnas_numericas + columnas_categoricas  # Eje Y puede ser numérico o categórico
 elif tipo_grafico == "Pie":
-    x_columnas = columnas_categoricas  # Eje X categórico para las etiquetas
-    y_columnas = columnas_numericas  # Eje Y numérico para los valores
+    x_columnas = columnas_numericas  # Eje X numérico para los valores
+    y_columnas = columnas_categoricas  # Eje Y categórico para las etiquetas
 elif tipo_grafico == "Histograma":
     x_columnas = columnas_numericas  # Solo eje X numérico
     y_columnas = ["N/A"]  # No requiere eje Y
 elif tipo_grafico == "Boxplot":
-    x_columnas = columnas_categoricas  # Categórico para agrupar
-    y_columnas = columnas_numericas  # Numérico para la distribución
+    x_columnas = columnas_numericas  # Numérico para la distribución
+    y_columnas = columnas_categoricas  # Categórico para agrupar
 
 # Widgets de selección
 x_col = st.sidebar.selectbox("Selecciona el eje X", x_columnas)
@@ -50,20 +50,20 @@ elif tipo_grafico == "Line":
     plt.plot(df[x_col], df[y_col], marker='o', color='green')
     plt.title("Gráfico de Línea")
 elif tipo_grafico == "Bar":
-    plt.bar(df[x_col], df[y_col], color='orange')
+    plt.bar(df[y_col], df[x_col], color='orange')  # Cambiando el orden de X y Y
     plt.title("Gráfico de Barras")
 elif tipo_grafico == "Barh":
-    plt.barh(df[x_col], df[y_col], color='purple')
+    plt.barh(df[y_col], df[x_col], color='purple')  # Cambiando el orden de X y Y
     plt.title("Gráfico de Barras Horizontales")
 elif tipo_grafico == "Pie":
-    valores = df.groupby(x_col)[y_col].sum()  # Sumar valores por categoría
+    valores = df.groupby(y_col)[x_col].sum()  # Sumar valores por categoría
     plt.pie(valores, labels=valores.index, autopct='%1.1f%%')
     plt.title("Gráfico de Torta")
 elif tipo_grafico == "Histograma":
     plt.hist(df[x_col], bins=10, color='gray', edgecolor='black')
     plt.title("Histograma")
 elif tipo_grafico == "Boxplot":
-    df.boxplot(column=y_col, by=x_col, grid=False)
+    df.boxplot(column=x_col, by=y_col, grid=False)  # Cambiando el orden de X y Y
     plt.title("Gráfico de Cajas")
     plt.suptitle("")
 
