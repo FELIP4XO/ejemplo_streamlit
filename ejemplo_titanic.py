@@ -102,13 +102,10 @@ else:
 
 
 st.title("Gráficos de Pastel")
-tipo_grafico = st.radio(
-    "Selecciona el gráfico que deseas visualizar:",
-    ["Porcentaje de empleados por región", "Porcentaje de empleados por género", "Distribución de roles laborales"]
-)
+tipo_grafico_pastel = st.radio("Selecciona el gráfico que deseas visualizar:", ["Porcentaje de empleados por región", "Porcentaje de empleados por género", "Distribución de roles laborales"])
 
 # Generar gráfico de pastel
-if tipo_grafico == "Porcentaje de empleados por región":
+if tipo_grafico_pastel == "Porcentaje de empleados por región":
     st.subheader("Porcentaje de empleados por región")
     region_counts = df['Region'].value_counts()
     
@@ -118,7 +115,7 @@ if tipo_grafico == "Porcentaje de empleados por región":
     ax.set_title("Distribución por Región")
     st.pyplot(fig)
 
-elif tipo_grafico == "Porcentaje de empleados por género":
+elif tipo_grafico_pastel == "Porcentaje de empleados por género":
     st.subheader("Porcentaje de empleados por género")
     gender_counts = df['Gender'].value_counts()
     
@@ -128,7 +125,7 @@ elif tipo_grafico == "Porcentaje de empleados por género":
     ax.set_title("Distribución por Género")
     st.pyplot(fig)
 
-elif tipo_grafico == "Distribución de roles laborales":
+elif tipo_grafico_pastel == "Distribución de roles laborales":
     st.subheader("Distribución de roles laborales")
     role_counts = df['Job_Role'].value_counts()
     
