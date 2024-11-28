@@ -199,13 +199,6 @@ elif tipo_grafico == "Edad vs Años de experiencia o nivel de estrés":
 
 
 
-import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
-
-# Cargar el archivo CSV
-file_path = "/mnt/data/csvsinnan.csv"  # Cambia esto si el archivo está en otra ubicación
-df = pd.read_csv(file_path)
 
 # Selección de las columnas para el gráfico de dispersión
 x_col = st.selectbox("Selecciona la variable para el eje X", df.columns)
