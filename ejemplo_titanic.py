@@ -98,13 +98,3 @@ if informacion_2 == "Metodología del estudio":
 elif informacion_2 == "Datos demográficos de los participantes":
     st.write("Los participantes fueron trabajadores de diversas edades, géneros y niveles de experiencia. La mayoría trabajaba en sectores como tecnología, educación y atención al cliente.")
 
-# --- Contenedor con otros gráficos o información adicional ---
-with st.container():
-    st.write("Este es el contenido dentro del contenedor")
-    
-    # Puedes incluir cualquier gráfico o información adicional dentro del contenedor
-    st.bar_chart(np.random.randn(50, 3))  # Generar gráfico de barras aleatorio
-
-# Este es el contenido fuera del contenedor
-st.write("Este es el contenido fuera del contenedor")
-
