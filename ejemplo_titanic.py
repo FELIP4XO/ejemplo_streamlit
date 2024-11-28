@@ -99,27 +99,23 @@ elif informacion_2 == "Datos demográficos de los participantes":
     st.write("Los participantes fueron trabajadores de diversas edades, géneros y niveles de experiencia. La mayoría trabajaba en sectores como tecnología, educación y atención al cliente.")
 
 
-import pandas as pd
-import streamlit as st
-import matplotlib.pyplot as plt
 
 # Cargar el archivo CSV
-file_path = "csvsinnan.csv"  # Cambia esta ruta según corresponda
-data = pd.read_csv(file_path)
+df = pd.read_csv("csvsinnan.csv")
 
 # Título de la página
 st.title("Gráfico de Barras Interactivo")
 
 # Mostrar las columnas disponibles
 st.sidebar.header("Configuración del Gráfico")
-x_col = st.sidebar.selectbox("Seleccione la columna para el eje X:", data.columns)
-y_col = st.sidebar.selectbox("Seleccione la columna para el eje Y:", data.columns)
+x_col = st.sidebar.selectbox("Seleccione la columna para el eje X:", df.columns)
+y_col = st.sidebar.selectbox("Seleccione la columna para el eje Y:", df.columns)
 
 # Verificar que las columnas seleccionadas sean válidas
 if x_col == y_col:
     st.error("La misma columna no puede ser usada para ambos ejes.")
 else:
-    if not pd.api.types.is_numeric_dtype(data[y_col]):
+    if not pd.api.types.is_numeric_dtype(df[y_col]):
         st.error(f"La columna '{y_col}' no contiene valores numéricos. Por favor seleccione otra.")
     else:
         # Generar el gráfico de barras
