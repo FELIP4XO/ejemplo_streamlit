@@ -143,7 +143,7 @@ st.pyplot(fig)
 # final del codigo de graficos 
 
 
-st.markdown(""WA"")
+st.markdown("""WA""")
 
 
 
