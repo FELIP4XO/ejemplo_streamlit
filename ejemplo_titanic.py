@@ -20,17 +20,8 @@ with st.sidebar:
     playlist_id = playlist_url.split('list=')[-1]
     components.iframe(f"https://www.youtube.com/embed/videoseries?list={playlist_id}", width=300, height=200)
     color_grafico = st.color_picker('Selecciona un color para el gráfico', '#007bff')
-    boton1 = st.button("¿Cuál es la relación entre el nivel de estrés y el modo de trabajo?")
-    if boton1:
-        st.write("alo")
-    casil1 = st.checkbox("Hola")
-    if casil1:
-        st.write("Casilla presionada")
-        casil2 = st.checkbox("subcasilla")
-        if casil2:
-            casil3 = st.checkbox("Otras más")
 
-# Selección de tipo de gráfico (Primera sección)
+# Selección de tipo de gráfico
 tipo_grafico = st.radio("Selecciona el tipo de gráfico", ["Barras", "Histograma"])
 
 # Columnas para gráficos
@@ -39,8 +30,8 @@ columnas_categoricas = df.select_dtypes(include=['object']).columns.tolist()
 
 # Si seleccionamos gráfico de barras
 if tipo_grafico == "Barras":
-    columna_x_barras = st.selectbox("Selecciona la columna para el eje X (Categórica):", columnas_categoricas)
-    columna_y_barras = st.selectbox("Selecciona la columna para el eje Y (Numérica):", columnas_numericas)
+    columna_x_barras = st.selectbox("Selecciona la columna para el eje X (Categórica):", columnas_categoricas, key="barras_x")
+    columna_y_barras = st.selectbox("Selecciona la columna para el eje Y (Numérica):", columnas_numericas, key="barras_y")
     
     if columna_x_barras and columna_y_barras:
         # Agrupar por la columna categórica y calcular el promedio para la columna numérica
@@ -53,7 +44,7 @@ if tipo_grafico == "Barras":
 
 # Si seleccionamos histograma
 elif tipo_grafico == "Histograma":
-    columna_histograma = st.selectbox("Selecciona la columna para el histograma:", columnas_numericas)
+    columna_histograma = st.selectbox("Selecciona la columna para el histograma:", columnas_numericas, key="histograma")
     if columna_histograma:
         # Crear histograma
         st.subheader(f"Histograma de {columna_histograma}")
@@ -63,12 +54,12 @@ elif tipo_grafico == "Histograma":
 # --- Nueva sección para los gráficos de Líneas y Dispersión ---
 
 # Selección de gráfico de Líneas o Dispersión (Segunda sección)
-tipo_grafico_2 = st.radio("Selecciona el tipo de gráfico", ["Líneas", "Dispersión"])
+tipo_grafico_2 = st.radio("Selecciona el tipo de gráfico", ["Líneas", "Dispersión"], key="lineas_dispersion")
 
 # Si seleccionamos gráfico de líneas
 if tipo_grafico_2 == "Líneas":
-    columna_x_lineas = st.selectbox("Selecciona la columna para el eje X (Numérica):", columnas_numericas)
-    columna_y_lineas = st.selectbox("Selecciona la columna para el eje Y (Numérica):", columnas_numericas)
+    columna_x_lineas = st.selectbox("Selecciona la columna para el eje X (Numérica):", columnas_numericas, key="lineas_x")
+    columna_y_lineas = st.selectbox("Selecciona la columna para el eje Y (Numérica):", columnas_numericas, key="lineas_y")
     
     if columna_x_lineas and columna_y_lineas:
         # Crear gráfico de líneas
@@ -80,8 +71,8 @@ if tipo_grafico_2 == "Líneas":
 
 # Si seleccionamos gráfico de dispersión
 elif tipo_grafico_2 == "Dispersión":
-    columna_x_dispersion = st.selectbox("Selecciona la columna para el eje X (Numérica):", columnas_numericas)
-    columna_y_dispersion = st.selectbox("Selecciona la columna para el eje Y (Numérica):", columnas_numericas)
+    columna_x_dispersion = st.selectbox("Selecciona la columna para el eje X (Numérica):", columnas_numericas, key="dispersion_x")
+    columna_y_dispersion = st.selectbox("Selecciona la columna para el eje Y (Numérica):", columnas_numericas, key="dispersion_y")
     
     if columna_x_dispersion and columna_y_dispersion:
         # Crear gráfico de dispersión
@@ -95,7 +86,7 @@ elif tipo_grafico_2 == "Dispersión":
 
 # Bloque 1 de selección para más información
 st.subheader("Más información sobre el gráfico seleccionado")
-informacion_1 = st.selectbox("Selecciona un tema para ver más información", ["Impacto del trabajo remoto", "Factores que afectan el estrés"])
+informacion_1 = st.selectbox("Selecciona un tema para ver más información", ["Impacto del trabajo remoto", "Factores que afectan el estrés"], key="informacion_1")
 if informacion_1 == "Impacto del trabajo remoto":
     st.write("El trabajo remoto tiene una gran influencia en la salud mental de los empleados. Puede aumentar el estrés debido a la falta de interacción social, la sobrecarga de trabajo, o la falta de control sobre el entorno.")
 elif informacion_1 == "Factores que afectan el estrés":
@@ -103,7 +94,7 @@ elif informacion_1 == "Factores que afectan el estrés":
 
 # Bloque 2 de selección para más información
 st.subheader("Más detalles sobre el estudio")
-informacion_2 = st.selectbox("Selecciona un tema para obtener más detalles", ["Metodología del estudio", "Datos demográficos de los participantes"])
+informacion_2 = st.selectbox("Selecciona un tema para obtener más detalles", ["Metodología del estudio", "Datos demográficos de los participantes"], key="informacion_2")
 if informacion_2 == "Metodología del estudio":
     st.write("El estudio se basó en encuestas realizadas a trabajadores de diferentes sectores. Se recopilaron datos sobre su bienestar mental, estrés y satisfacción laboral.")
 elif informacion_2 == "Datos demográficos de los participantes":
