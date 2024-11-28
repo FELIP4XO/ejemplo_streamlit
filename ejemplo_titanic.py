@@ -4,7 +4,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 
 # Cargar el DataFrame
-df = pd.read_csv("Impact_of_Remote_Work_on_Mental_Health.csv")
+df = pd.read_csv("csvsinnan.csv")
 
 # Título principal
 st.title("Salud mental en trabajo remoto")
