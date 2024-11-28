@@ -25,9 +25,15 @@ with st.sidebar:
 # Selección de tipo de gráfico
 tipo_grafico = st.radio("Selecciona el tipo de gráfico", ["Barras", "Histograma"])
 
+# Lista de columnas específicas permitidas para el histograma
+columnas_histograma_permitidas = ['age', 'Years_of_Experience', 'Hours_Worked_Per_Week']
+
 # Columnas para gráficos
 columnas_numericas = df.select_dtypes(include=['float64', 'int64']).columns.tolist()
 columnas_categoricas = df.select_dtypes(include=['object']).columns.tolist()
+
+# Filtrar las columnas numéricas para que solo incluyan las permitidas
+columnas_histograma_disponibles = [col for col in columnas_numericas if col in columnas_histograma_permitidas]
 
 # --- Si seleccionamos gráfico de barras ---
 if tipo_grafico == "Barras":
@@ -45,12 +51,13 @@ if tipo_grafico == "Barras":
 
 # --- Si seleccionamos histograma ---
 elif tipo_grafico == "Histograma":
-    columna_histograma = st.selectbox("Selecciona la columna para el histograma:", columnas_numericas, key="histograma")
+    columna_histograma = st.selectbox("Selecciona la columna para el histograma:", columnas_histograma_disponibles, key="histograma")
     if columna_histograma:
         # Crear histograma
         st.subheader(f"Histograma de {columna_histograma}")
         plt.hist(df[columna_histograma].dropna(), bins=20, color=color_grafico)
         st.pyplot(plt)
+
 
 # --- Nueva sección para los gráficos de Líneas y Dispersión ---
 tipo_grafico_2 = st.radio("Selecciona el tipo de gráfico", ["Líneas", "Dispersión"], key="lineas_dispersion")
