@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit.components.v1 as components
-
+import plotly.express as px
 df = pd.read_csv("csvsinnan.csv")
 st.title("Salud mental en trabajo remoto")
 st.markdown("""
@@ -146,9 +146,11 @@ st.pyplot(fig)
 st.markdown("Al ver los datos de estrés según dónde trabajamos (oficina, casa o una mezcla), vemos que la situación es más complicada de lo que parece. Aunque trabajar desde casa puede ser más tranquilo para algunos, otros se sienten solos o les cuesta desconectar. En la oficina, las presiones del día a día y las relaciones con los compañeros también generan estrés. El modelo híbrido, que combina ambas opciones, podría ser una buena solución para muchos, pero hay que analizar caso por caso para saber qué funciona mejor para cada persona.")
 
 
-import streamlit as st
-import pandas as pd
-import plotly.express as px
+
+
+
+
+
 
 # Cargar datos desde el archivo proporcionado
 file_path = "csvsinnan.csv"  # Asegúrate de que el archivo esté en el mismo directorio que este script
