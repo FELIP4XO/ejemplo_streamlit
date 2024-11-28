@@ -19,8 +19,8 @@ with st.sidebar:
     playlist_url = "https://www.youtube.com/playlist?list=PLHLua7lnY9X-uAKqwp0T23h3A4d-ZajTO"
     playlist_id = playlist_url.split('list=')[-1]
     components.iframe(f"https://www.youtube.com/embed/videoseries?list={playlist_id}", width=300, height=200)
-    color_grafico = st.color_picker('Selecciona un color para el grafico','#007bff')
-    boton1 = st.button("¿Cual es la relacion de nivel de  estres y modo de trabajo?")
+    color_grafico = st.color_picker('Selecciona un color para el gráfico', '#007bff')
+    boton1 = st.button("¿Cuál es la relación entre el nivel de estrés y el modo de trabajo?")
     if boton1:
         st.write("alo")
     casil1 = st.checkbox("Hola")
@@ -28,7 +28,7 @@ with st.sidebar:
         st.write("Casilla presionada")
         casil2 = st.checkbox("subcasilla")
         if casil2:
-            casil3 = st.checkbox("Otramas")
+            casil3 = st.checkbox("Otras más")
 
 # Selección de tipo de gráfico
 tipo_grafico = st.radio("Selecciona el tipo de gráfico", ["Barras", "Histograma"])
@@ -48,6 +48,7 @@ if tipo_grafico == "Barras":
         st.write(grouped_data)
         
         # Crear gráfico de barras
+        st.subheader(f"Gráfico de Barras: {columna_y_barras} por {columna_x_barras}")
         st.bar_chart(grouped_data, color=color_grafico)
 
 # Si seleccionamos histograma
