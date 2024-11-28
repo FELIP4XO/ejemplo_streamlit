@@ -71,7 +71,7 @@ opciontras = st.selectbox("Selecciona uno de estos trastornos para saber mas de 
 
 
 st.title("Gráficos de Pastel")
-tipo_grafico_pastel = st.radio("Selecciona el gráfico que deseas visualizar:", ["Porcentaje de empleados por región", "Porcentaje de empleados por género", "Distribución de roles laborales"])
+tipo_grafico_pastel = st.button("Selecciona el gráfico que deseas visualizar:", ["Porcentaje de empleados por región", "Porcentaje de empleados por género", "Distribución de roles laborales"])
 
 # Generar gráfico de pastel
 if tipo_grafico_pastel == "Porcentaje de empleados por región":
