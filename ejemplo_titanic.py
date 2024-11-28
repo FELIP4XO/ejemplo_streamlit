@@ -21,6 +21,7 @@ with st.sidebar:
     playlist_id = playlist_url.split('list=')[-1]
     components.iframe(f"https://www.youtube.com/embed/videoseries?list={playlist_id}", width=300, height=200)
     color_grafico = st.color_picker('Selecciona un color para el gráfico', '#007bff')
+
 tipo_grafico = st.radio("Selecciona el tipo de gráfico", ["Barras", "Histograma"])
 
 # Lista de columnas específicas permitidas para el histograma
@@ -41,17 +42,11 @@ columnas_histograma_disponibles = [col for col in columnas_numericas if col in c
 
 # --- Si seleccionamos gráfico de barras ---
 if tipo_grafico == "Barras":
-    columna_x_barras = st.selectbox("Selecciona la columna para el eje X (Categórica):", columnas_categoricas, key="barras_x")
-    columna_y_barras = st.selectbox("Selecciona la columna para el eje Y (Numérica):", columnas_numericas, key="barras_y")
+    columna_x = st.selectbox("Selecciona la columna para el eje X:", columnas_categoricas)
+    columna_y = st.selectbox("Selecciona la columna para el eje Y:", columnas_numericas)
     
-    if columna_x_barras and columna_y_barras:
-        # Agrupar por la columna categórica y calcular el promedio para la columna numérica
-        grouped_data = df.groupby(columna_x_barras)[columna_y_barras].mean().sort_values()
-        st.write(grouped_data)
-        
-        # Crear gráfico de barras
-        st.subheader(f"Gráfico de Barras: {columna_y_barras} por {columna_x_barras}")
-        st.bar_chart(grouped_data, color=color_grafico)
+    if columna_x and columna_y:
+       st.bar_chart(df, x=columna_x, y=columna_y, color=color_grafico)
 
 elif tipo_grafico == "Histograma":
     columna_histograma = st.selectbox("Selecciona la columna para el histograma:", columnas_histograma_disponibles, key="histograma")
