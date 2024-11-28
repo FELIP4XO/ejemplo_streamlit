@@ -100,31 +100,4 @@ elif informacion_2 == "Datos demográficos de los participantes":
 
 
 
-# Cargar el archivo CSV
-df = pd.read_csv("csvsinnan.csv")
-
-# Título de la página
-st.title("Gráfico de Barras Interactivo")
-
-# Mostrar las columnas disponibles
-st.sidebar.header("Configuración del Gráfico")
-x_col = st.sidebar.selectbox("Seleccione la columna para el eje X:", df.columns)
-y_col = st.sidebar.selectbox("Seleccione la columna para el eje Y:", df.columns)
-
-# Verificar que las columnas seleccionadas sean válidas
-if x_col == y_col:
-    st.error("La misma columna no puede ser usada para ambos ejes.")
-else:
-    if not pd.api.types.is_numeric_dtype(df[y_col]):
-        st.error(f"La columna '{y_col}' no contiene valores numéricos. Por favor seleccione otra.")
-    else:
-        # Generar el gráfico de barras
-        fig, ax = plt.subplots(figsize=(10, 6))
-        data.groupby(x_col)[y_col].mean().plot(kind="bar", color="skyblue", edgecolor="black", ax=ax)
-        ax.set_title(f"Gráfico de Barras: {y_col} vs {x_col}", fontsize=16)
-        ax.set_xlabel(x_col, fontsize=14)
-        ax.set_ylabel(y_col, fontsize=14)
-        ax.tick_params(axis="x", rotation=45)
-        st.pyplot(fig)
-
 
