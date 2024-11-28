@@ -44,23 +44,22 @@ columnas_para_barras_y_histogramas = {
 st.sidebar.markdown("## Configuración de gráficos")
 tipo_grafico = st.sidebar.radio("Selecciona el tipo de gráfico:", ["Barras", "Histograma"])
 
-# Selector de columnas según el gráfico
+# Selección de columnas para el gráfico
+columna_x = st.sidebar.selectbox("Selecciona una columna para el eje X:", columnas_para_barras_y_histogramas["categóricas"])
 if tipo_grafico == "Barras":
-    columna_x = st.sidebar.selectbox("Selecciona una columna para el eje X (categórica):", 
-                                     columnas_para_barras_y_histogramas["categóricas"])
+    columna_y = st.sidebar.selectbox("Selecciona una columna para el eje Y (numérica):", columnas_para_barras_y_histogramas["numéricas"])
 elif tipo_grafico == "Histograma":
-    columna_y = st.sidebar.selectbox("Selecciona una columna para el eje Y (numérica):", 
-                                     columnas_para_barras_y_histogramas["numéricas"])
+    columna_y = st.sidebar.selectbox("Selecciona una columna para el eje Y (numérica):", columnas_para_barras_y_histogramas["numéricas"])
 
 # Generación del gráfico
 if tipo_grafico == "Barras":
-    st.subheader(f"Gráfico de barras: {columna_x}")
-    conteo = df[columna_x].value_counts()
+    st.subheader(f"Gráfico de barras: {columna_x} vs {columna_y}")
+    grouped_data = df.groupby(columna_x)[columna_y].mean().sort_values()
     plt.figure(figsize=(8, 6))
-    plt.bar(conteo.index, conteo.values, color=color_grafico)
-    plt.title(f"Distribución de {columna_x}", fontsize=16)
+    plt.bar(grouped_data.index, grouped_data.values, color=color_grafico)
+    plt.title(f"{columna_y} promedio por {columna_x}", fontsize=16)
     plt.xlabel(columna_x)
-    plt.ylabel("Conteo")
+    plt.ylabel(f"Promedio de {columna_y}")
     st.pyplot(plt)
 
 elif tipo_grafico == "Histograma":
