@@ -149,6 +149,50 @@ st.markdown("""WA""")
 
 
 
+# Selección del tipo de gráfico
+tipo_grafico = st.radio("Selecciona el gráfico de dispersión", ["Horas trabajadas vs Satisfacción", "Edad vs Años de experiencia o nivel de estrés"])
+
+# Definir colores para el gráfico
+color_grafico = st.color_picker('Selecciona un color para el gráfico', '#007bff')
+
+# Gráfico de dispersión para Horas trabajadas vs Satisfacción o Balance vida-trabajo
+if tipo_grafico == "Horas trabajadas vs Satisfacción":
+    fig, ax = plt.subplots(figsize=(10, 6))
+    ax.scatter(df['Hours_Worked_Per_Week'], df['Work_Life_Balance_Rating'], color=color_grafico)
+    
+    ax.set_title("Horas trabajadas vs Satisfacción/Balance Vida-Trabajo", fontsize=16)
+    ax.set_xlabel("Horas trabajadas por semana", fontsize=12)
+    ax.set_ylabel("Satisfacción/Balance Vida-Trabajo", fontsize=12)
+    
+    st.pyplot(fig)
+
+# Gráfico de dispersión para Edad vs Años de experiencia o nivel de estrés
+elif tipo_grafico == "Edad vs Años de experiencia o nivel de estrés":
+    opcion = st.radio("Selecciona qué variable comparar con Edad", ["Años de experiencia", "Nivel de estrés"])
+    
+    if opcion == "Años de experiencia":
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.scatter(df['Age'], df['Years_of_Experience'], color=color_grafico)
+        
+        ax.set_title("Edad vs Años de Experiencia", fontsize=16)
+        ax.set_xlabel("Edad", fontsize=12)
+        ax.set_ylabel("Años de experiencia", fontsize=12)
+        
+        st.pyplot(fig)
+    
+    elif opcion == "Nivel de estrés":
+        fig, ax = plt.subplots(figsize=(10, 6))
+        ax.scatter(df['Age'], df['Stress_Level'], color=color_grafico)
+        
+        ax.set_title("Edad vs Nivel de Estrés", fontsize=16)
+        ax.set_xlabel("Edad", fontsize=12)
+        ax.set_ylabel("Nivel de Estrés", fontsize=12)
+        
+        st.pyplot(fig)
+
+
+
+
 
 
 st.subheader("Más información sobre el gráfico seleccionado")
