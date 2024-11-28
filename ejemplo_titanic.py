@@ -66,7 +66,7 @@ elif tipo_grafico == "Histograma":
 
 
 columna_trastorno = ["Depresión","Ansiedad","Burnout"]
-opciontras = st.selectbox("Selecciona uno de estos trastornos para saber mas de ellos",columna_trastorno)
+opciontras = st.radio("Selecciona uno de estos trastornos para saber mas de ellos",columna_trastorno)
 
 
 
