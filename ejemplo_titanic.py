@@ -1,46 +1,73 @@
-import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
-import numpy as np
+import streamlit as st
+import streamlit.components.v1 as components
 
-# Cargar los datos
-file_path = "Impact_of_Remote_Work_on_Mental_Health.csv"
-df = pd.read_csv(file_path)
+# Cargar el DataFrame
+df = pd.read_csv("Impact_of_Remote_Work_on_Mental_Health.csv")
 
-# Identificar columnas numéricas y categóricas
-numericas = df.select_dtypes(include=[np.number]).columns.tolist()
-categoricas = df.select_dtypes(include=["object", "category"]).columns.tolist()
+# Título principal
+st.title("Salud mental en trabajo remoto")
 
-# Opciones de gráficos
-st.title("Visualización de Datos")
-tipo_grafico = st.sidebar.selectbox("Selecciona el tipo de gráfico", ["Scatter", "Line", "Bar", "Barh", "Histograma"])
+# Estilo personalizado
+st.markdown("""
+<style>
+    [data-testid=stSidebar] {background-color: #10609d;}
+</style>
+""", unsafe_allow_html=True)
 
-# Selección de ejes
-x_col = st.sidebar.selectbox("Eje X (numérico)", numericas)
-if tipo_grafico in ["Scatter", "Line", "Bar", "Barh"]:
-    y_col = st.sidebar.selectbox("Eje Y", numericas + categoricas)
-else:
-    y_col = None
+# Barra lateral
+with st.sidebar:
+    st.markdown("<h1 style='color: white'>Opciones de color</h1>", unsafe_allow_html=True)
+    st.title('Reproductor Musical desde YouTube')
+    playlist_url = "https://www.youtube.com/playlist?list=PLHLua7lnY9X-uAKqwp0T23h3A4d-ZajTO"
+    playlist_id = playlist_url.split('list=')[-1]
+    components.iframe(f"https://www.youtube.com/embed/videoseries?list={playlist_id}", width=300, height=200)
+    color_grafico = st.color_picker('Selecciona un color para el grafico', '#007bff')
+    boton1 = st.button("¿Cual es la relación de nivel de estrés y modo de trabajo?")
+    if boton1:
+        st.write("alo")
+    casil1 = st.checkbox("Hola")
+    if casil1:
+        st.write("Casilla presionada")
+        casil2 = st.checkbox("subcasilla")
+        if casil2:
+            casil3 = st.checkbox("Otramas")
 
-# Generación de gráficos
-plt.figure(figsize=(10, 5))
-if tipo_grafico == "Scatter":
-    plt.scatter(df[x_col], df[y_col], alpha=0.7)
-    plt.title("Gráfico de Dispersión")
-elif tipo_grafico == "Line":
-    plt.plot(df[x_col], df[y_col], marker='o')
-    plt.title("Gráfico de Línea")
-elif tipo_grafico == "Bar":
-    plt.bar(df[y_col], df[x_col])
-    plt.title("Gráfico de Barras")
-elif tipo_grafico == "Barh":
-    plt.barh(df[y_col], df[x_col])
-    plt.title("Gráfico de Barras Horizontales")
+# Configuración de columnas compatibles para gráficos
+columnas_para_barras_y_histogramas = {
+    "categóricas": ["Gender", "Job_Role", "Work_Location", "Mental_Health_Condition"],
+    "numéricas": ["Age", "Years_of_Experience", "Stress_Level", "Productivity_Change"]
+}
+
+# Selector de tipo de gráfico
+st.sidebar.markdown("## Configuración de gráficos")
+tipo_grafico = st.sidebar.radio("Selecciona el tipo de gráfico:", ["Barras", "Histograma"])
+
+# Selector de columnas según el gráfico
+if tipo_grafico == "Barras":
+    columna_x = st.sidebar.selectbox("Selecciona una columna para el eje X (categórica):", 
+                                     columnas_para_barras_y_histogramas["categóricas"])
 elif tipo_grafico == "Histograma":
-    plt.hist(df[x_col], bins=10, color='gray', edgecolor='black')
-    plt.title("Histograma")
+    columna_y = st.sidebar.selectbox("Selecciona una columna para el eje Y (numérica):", 
+                                     columnas_para_barras_y_histogramas["numéricas"])
 
-plt.xlabel(x_col)
-if y_col:
-    plt.ylabel(y_col)
-st.pyplot(plt)
+# Generación del gráfico
+if tipo_grafico == "Barras":
+    st.subheader(f"Gráfico de barras: {columna_x}")
+    conteo = df[columna_x].value_counts()
+    plt.figure(figsize=(8, 6))
+    plt.bar(conteo.index, conteo.values, color=color_grafico)
+    plt.title(f"Distribución de {columna_x}", fontsize=16)
+    plt.xlabel(columna_x)
+    plt.ylabel("Conteo")
+    st.pyplot(plt)
+
+elif tipo_grafico == "Histograma":
+    st.subheader(f"Histograma: {columna_y}")
+    plt.figure(figsize=(8, 6))
+    plt.hist(df[columna_y].dropna(), bins=20, color=color_grafico, alpha=0.7)
+    plt.title(f"Distribución de {columna_y}", fontsize=16)
+    plt.xlabel(columna_y)
+    plt.ylabel("Frecuencia")
+    st.pyplot(plt)
