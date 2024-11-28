@@ -36,8 +36,7 @@ columnas_categoricas = ["Gender", "Job_Role", "Work_Location", "Mental_Health_Co
                         "Physical_Activity", "Sleep_Quality"]
 
 
-# --- Si seleccionamos gráfico de barras ---
-if tipo_grafico == "Barras":
+
 columnas_histograma_disponibles = [col for col in columnas_numericas if col in columnas_histograma_permitidas]
 
 # --- Si seleccionamos gráfico de barras ---
