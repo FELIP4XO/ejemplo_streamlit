@@ -110,11 +110,6 @@ elif tipo_grafico_pastel == "Distribución de roles laborales":
 
 
 
-# Crear el gráfico de barras apiladas
-fig, ax = plt.subplots(figsize=(10, 6))
-
-# Crear el gráfico de barras apiladas sin agrupamiento (usando pivot_table)
-df_pivot = df.pivot_table(index='Work_Location', columns='Stress_Level', aggfunc='size', fill_value=0)
 
 # Colores predeterminados
 default_colors = ['#007bff', '#28a745', '#dc3545']
