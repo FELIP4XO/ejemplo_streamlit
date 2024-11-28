@@ -30,8 +30,8 @@ with st.sidebar:
         if casil2:
             casil3 = st.checkbox("Otras más")
 
-# Selección de tipo de gráfico
-tipo_grafico = st.radio("Selecciona el tipo de gráfico", ["Barras", "Histograma", "Líneas", "Dispersión"])
+# Selección de tipo de gráfico (Primera sección)
+tipo_grafico = st.radio("Selecciona el tipo de gráfico", ["Barras", "Histograma"])
 
 # Columnas para gráficos
 columnas_numericas = df.select_dtypes(include=['float64', 'int64']).columns.tolist()
@@ -60,8 +60,13 @@ elif tipo_grafico == "Histograma":
         plt.hist(df[columna_histograma].dropna(), bins=20, color=color_grafico)
         st.pyplot(plt)
 
+# --- Nueva sección para los gráficos de Líneas y Dispersión ---
+
+# Selección de gráfico de Líneas o Dispersión (Segunda sección)
+tipo_grafico_2 = st.radio("Selecciona el tipo de gráfico", ["Líneas", "Dispersión"])
+
 # Si seleccionamos gráfico de líneas
-elif tipo_grafico == "Líneas":
+if tipo_grafico_2 == "Líneas":
     columna_x_lineas = st.selectbox("Selecciona la columna para el eje X (Numérica):", columnas_numericas)
     columna_y_lineas = st.selectbox("Selecciona la columna para el eje Y (Numérica):", columnas_numericas)
     
@@ -74,7 +79,7 @@ elif tipo_grafico == "Líneas":
         st.pyplot(plt)
 
 # Si seleccionamos gráfico de dispersión
-elif tipo_grafico == "Dispersión":
+elif tipo_grafico_2 == "Dispersión":
     columna_x_dispersion = st.selectbox("Selecciona la columna para el eje X (Numérica):", columnas_numericas)
     columna_y_dispersion = st.selectbox("Selecciona la columna para el eje Y (Numérica):", columnas_numericas)
     
@@ -85,3 +90,21 @@ elif tipo_grafico == "Dispersión":
         plt.xlabel(columna_x_dispersion)
         plt.ylabel(columna_y_dispersion)
         st.pyplot(plt)
+
+# --- Bloques de selección para ver más información ---
+
+# Bloque 1 de selección para más información
+st.subheader("Más información sobre el gráfico seleccionado")
+informacion_1 = st.selectbox("Selecciona un tema para ver más información", ["Impacto del trabajo remoto", "Factores que afectan el estrés"])
+if informacion_1 == "Impacto del trabajo remoto":
+    st.write("El trabajo remoto tiene una gran influencia en la salud mental de los empleados. Puede aumentar el estrés debido a la falta de interacción social, la sobrecarga de trabajo, o la falta de control sobre el entorno.")
+elif informacion_1 == "Factores que afectan el estrés":
+    st.write("El estrés puede ser causado por varios factores, como la presión laboral, las responsabilidades familiares, el entorno de trabajo, y los problemas personales. La gestión del tiempo y las técnicas de relajación pueden ayudar a reducir el estrés.")
+
+# Bloque 2 de selección para más información
+st.subheader("Más detalles sobre el estudio")
+informacion_2 = st.selectbox("Selecciona un tema para obtener más detalles", ["Metodología del estudio", "Datos demográficos de los participantes"])
+if informacion_2 == "Metodología del estudio":
+    st.write("El estudio se basó en encuestas realizadas a trabajadores de diferentes sectores. Se recopilaron datos sobre su bienestar mental, estrés y satisfacción laboral.")
+elif informacion_2 == "Datos demográficos de los participantes":
+    st.write("Los participantes fueron trabajadores de diversas edades, géneros y niveles de experiencia. La mayoría trabajaba en sectores como tecnología, educación y atención al cliente.")
