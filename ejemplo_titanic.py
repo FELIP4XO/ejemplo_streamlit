@@ -69,37 +69,6 @@ columna_trastorno = ["Depresión","Ansiedad","Burnout"]
 opciontras = st.selectbox("Selecciona uno de estos trastornos para saber mas de ellos",columna_trastorno)
 
 
-if opciontras == "Depresión":
-    with open("Depression Booklet - Spanish.pdf", "rb") as arcpdf:
-        PDFbyte = arcpdf.read()
-    st.download_button(label="Pulsa aqui para descargar un PDF acerca de la depresion",
-                        data=PDFbyte, 
-                        file_name="Depression Booklet.pdf",
-                        mime="appsaludmental-nucwd9c8fligafado4zcnzw.streamlit.app")
-    
-elif opciontras == "Ansiedad":
-    with open("ansiedad.pdf", "rb") as arf:
-        PDFbyte = arf.read()
-    st.download_button(label="Pulsa aqui para descargar un PDF acerca de la ansiedad",
-                        data=PDFbyte, 
-                        file_name="Consejos y escala para la ansiedad.pdf",
-                        mime="appsaludmental-nucwd9c8fligafado4zcnzw.streamlit.app")
-else:
-    with open("Sindromeburnoutsintycausas.pdf", "rb") as afg:
-        PDFbyte = afg.read()
-    st.download_button(label="Pulsa aqui para descargar un PDF acerca del Burnout",
-                        data=PDFbyte, 
-                        file_name="Sindrome Burnout causas y sintomas.pdf",
-                        mime="appsaludmental-nucwd9c8fligafado4zcnzw.streamlit.app")
-    with open("cuestionarioburnout.pdf", "rb") as addf:
-        PDFbyte = addf.read()
-    st.download_button(label="Pulsa aqui para descargar un Cuestionario sobre el Burnout",
-                        data=PDFbyte, 
-                        file_name="Cuestionario para Burnout.pdf",
-                        mime="appsaludmental-nucwd9c8fligafado4zcnzw.streamlit.app")
-    
-
-
 
 st.title("Gráficos de Pastel")
 tipo_grafico_pastel = st.radio("Selecciona el gráfico que deseas visualizar:", ["Porcentaje de empleados por región", "Porcentaje de empleados por género", "Distribución de roles laborales"])
