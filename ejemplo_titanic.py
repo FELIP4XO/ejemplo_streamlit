@@ -104,35 +104,28 @@ elif tipo_grafico_pastel == "Distribución de roles laborales":
     ax.set_title("Distribución de Roles Laborales")
     st.pyplot(fig)
 
-if "Productivity_Change" not in df.columns or "Work_Location" not in df.columns or "Region" not in df.columns:
+# Verificar que las columnas necesarias existan
+if "Stress_Level" not in df.columns or "Work_Location" not in df.columns:
     st.error("El archivo CSV no contiene las columnas necesarias para este gráfico.")
 else:
-    # Título de la app
-    st.title("Gráficos de Líneas: Cambios en Productividad")
+    # Limpiar datos
+    df = df.dropna(subset=['Stress_Level', 'Work_Location'])  # Eliminar filas con NaN en estas columnas
 
-    # Seleccionar categoría para filtrar: Ubicación laboral o Región
-    categoria = st.radio("Selecciona la categoría para visualizar cambios en productividad:", ["Work_Location", "Region"])
+    # Agrupar por 'Work_Location' y 'Stress_Level' y contar las ocurrencias
+    df_agrupado = df.groupby(['Work_Location', 'Stress_Level']).size().unstack(fill_value=0)
 
-    # Agrupar los datos por la categoría seleccionada y calcular los promedios de productividad
-    df_agrupado = df.groupby(categoria)['Productivity_Change'].mean().reset_index()
+    # Crear gráfico de barras apiladas
+    fig, ax = plt.subplots(figsize=(10, 6))
+    df_agrupado.plot(kind='bar', stacked=True, ax=ax, colormap='viridis')
 
-    # Ordenar los datos para un gráfico más claro
-    df_agrupado = df_agrupado.sort_values(by="Productivity_Change")
+    # Etiquetas y título
+    ax.set_title("Distribución de Niveles de Estrés según Ubicación Laboral", fontsize=16)
+    ax.set_xlabel("Ubicación Laboral", fontsize=12)
+    ax.set_ylabel("Número de Empleados", fontsize=12)
+    ax.legend(title="Nivel de Estrés", title_fontsize='13', fontsize='11')
 
-    # Crear el gráfico de líneas
-    fig, ax = plt.subplots()
-    ax.plot(df_agrupado[categoria], df_agrupado["Productivity_Change"], marker='o', linestyle='-', color='b')
-    ax.set_title(f"Cambios en Productividad según {categoria}", fontsize=16)
-    ax.set_xlabel(categoria, fontsize=12)
-    ax.set_ylabel("Cambio en Productividad (Promedio)", fontsize=12)
-    ax.grid(True)
-    plt.xticks(rotation=45)
-
-    # Mostrar el gráfico en Streamlit
+    # Mostrar gráfico
     st.pyplot(fig)
-
-
-
 
 
 
