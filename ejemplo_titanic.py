@@ -146,6 +146,50 @@ st.pyplot(fig)
 st.markdown("Al ver los datos de estrés según dónde trabajamos (oficina, casa o una mezcla), vemos que la situación es más complicada de lo que parece. Aunque trabajar desde casa puede ser más tranquilo para algunos, otros se sienten solos o les cuesta desconectar. En la oficina, las presiones del día a día y las relaciones con los compañeros también generan estrés. El modelo híbrido, que combina ambas opciones, podría ser una buena solución para muchos, pero hay que analizar caso por caso para saber qué funciona mejor para cada persona.")
 
 
+import streamlit as st
+import pandas as pd
+import plotly.express as px
+
+# Cargar datos desde el archivo proporcionado
+file_path = "csvsinnan.csv"  # Asegúrate de que el archivo esté en el mismo directorio que este script
+df = pd.read_csv(file_path)
+
+# Columnas seleccionables
+columns_to_use = [
+    "Age",
+    "Years_of_Experience",
+    "Hours_Worked_Per_Week",
+    "Number_of_Virtual_Meetings",
+    "Work_Life_Balance_Rating",
+    "Social_Isolation_Rating",
+    "Company_Support_for_Remote_Work",
+]
+
+st.title("Gráfico de Dispersión Interactivo")
+
+# Controles del usuario
+x_axis = st.selectbox("Selecciona la columna para el eje X:", columns_to_use, index=0)
+y_axis = st.selectbox("Selecciona la columna para el eje Y:", columns_to_use, index=1)
+size = st.selectbox("Selecciona la columna para el tamaño de los círculos:", columns_to_use, index=2)
+color = st.selectbox("Selecciona la columna para el color:", columns_to_use, index=3)
+
+st.write("### Configuración seleccionada:")
+st.write(f"**Eje X:** {x_axis}, **Eje Y:** {y_axis}, **Tamaño:** {size}, **Color:** {color}")
+
+# Crear gráfico
+fig = px.scatter(
+    df,
+    x=x_axis,
+    y=y_axis,
+    size=size,
+    color=color,
+    hover_data=df.columns,
+    title="Gráfico de Dispersión Interactivo",
+    labels={x_axis: x_axis, y_axis: y_axis},
+)
+
+# Mostrar gráfico
+st.plotly_chart(fig)
 
 
 
