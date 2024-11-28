@@ -104,38 +104,29 @@ elif tipo_grafico_pastel == "Distribución de roles laborales":
     ax.set_title("Distribución de Roles Laborales")
     st.pyplot(fig)
 
-import streamlit as st
-import pandas as pd
-import matplotlib.pyplot as plt
-
-# Limpiar datos: eliminar filas con valores NaN en 'Stress_Level' y 'Work_Location'
-df = df.dropna(subset=['Stress_Level', 'Work_Location'])
-
-# Agrupar por 'Work_Location' y 'Stress_Level' y contar las ocurrencias
-df_agrupado = df.groupby(['Work_Location', 'Stress_Level']).size().unstack(fill_value=0)
-
-# Seleccionar 3 colores para los niveles de estrés con st.color_picker
-color_grafico_1 = st.color_picker('Selecciona un color para el Nivel de Estrés 1 (Bajo)', '#007bff')
-color_grafico_2 = st.color_picker('Selecciona un color para el Nivel de Estrés 2 (Moderado)', '#28a745')
-color_grafico_3 = st.color_picker('Selecciona un color para el Nivel de Estrés 3 (Alto)', '#dc3545')
-
-# Crear una lista de colores basada en los 3 colores seleccionados
-colors = [color_grafico_1, color_grafico_2, color_grafico_3]
-
-# Crear gráfico de barras apiladas
-fig, ax = plt.subplots(figsize=(10, 6))
-df_agrupado.plot(kind='bar', stacked=True, ax=ax, color=colors)
-
-# Etiquetas y título
-ax.set_title("Distribución de Niveles de Estrés según Ubicación Laboral", fontsize=16)
-ax.set_xlabel("Ubicación Laboral", fontsize=12)
-ax.set_ylabel("Número de Empleados", fontsize=12)
-ax.legend(title="Nivel de Estrés", title_fontsize='13', fontsize='11')
-
-# Mostrar gráfico
-st.pyplot(fig)
 
 
+if st.button('Seleccionar Colores para los Niveles de Estrés'):
+    # Mostrar los 3 selectores de color solo cuando se presiona el botón
+    color_grafico_1 = st.color_picker('Selecciona un color para el Nivel de Estrés 1 (Bajo)', '#007bff')
+    color_grafico_2 = st.color_picker('Selecciona un color para el Nivel de Estrés 2 (Moderado)', '#28a745')
+    color_grafico_3 = st.color_picker('Selecciona un color para el Nivel de Estrés 3 (Alto)', '#dc3545')
+
+    # Crear una lista de colores basada en los 3 colores seleccionados
+    colors = [color_grafico_1, color_grafico_2, color_grafico_3]
+
+    # Crear gráfico de barras apiladas
+    fig, ax = plt.subplots(figsize=(10, 6))
+    df_agrupado.plot(kind='bar', stacked=True, ax=ax, color=colors)
+
+    # Etiquetas y título
+    ax.set_title("Distribución de Niveles de Estrés según Ubicación Laboral", fontsize=16)
+    ax.set_xlabel("Ubicación Laboral", fontsize=12)
+    ax.set_ylabel("Número de Empleados", fontsize=12)
+    ax.legend(title="Nivel de Estrés", title_fontsize='13', fontsize='11')
+
+    # Mostrar gráfico
+    st.pyplot(fig)
 
 
 
