@@ -63,4 +63,4 @@ elif tipo_grafico == "Histograma":
     plt.title(f"Distribución de {columna_y_histograma}", fontsize=16)
     plt.xlabel(columna_y_histograma)
     plt.ylabel("Frecuencia")
-    st.pyplot(plt)
+    st.pyplot(plt) 
