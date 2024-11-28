@@ -195,6 +195,49 @@ elif tipo_grafico == "Edad vs Años de experiencia o nivel de estrés":
 
 
 
+
+
+
+
+import streamlit as st
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Cargar el archivo CSV
+file_path = "/mnt/data/csvsinnan.csv"  # Cambia esto si el archivo está en otra ubicación
+df = pd.read_csv(file_path)
+
+# Selección de las columnas para el gráfico de dispersión
+x_col = st.selectbox("Selecciona la variable para el eje X", df.columns)
+y_col = st.selectbox("Selecciona la variable para el eje Y", df.columns)
+
+# Seleccionar color para el gráfico
+color_grafico = st.color_picker('Selecciona un color para el gráfico', '#007bff')
+
+# Crear el gráfico de dispersión
+fig, ax = plt.subplots(figsize=(10, 6))
+ax.scatter(df[x_col], df[y_col], color=color_grafico)
+
+# Añadir etiquetas y título
+ax.set_title(f"Gráfico de dispersión: {x_col} vs {y_col}", fontsize=16)
+ax.set_xlabel(x_col, fontsize=12)
+ax.set_ylabel(y_col, fontsize=12)
+
+# Mostrar el gráfico en Streamlit
+st.pyplot(fig)
+
+
+
+
+
+
+
+
+
+
+
+
+
 st.subheader("Más información sobre el gráfico seleccionado")
 informacion_1 = st.selectbox("Selecciona un tema para ver más información", ["Impacto del trabajo remoto", "Factores que afectan el estrés"], key="informacion_1")
 if informacion_1 == "Impacto del trabajo remoto":
