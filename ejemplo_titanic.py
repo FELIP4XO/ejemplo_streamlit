@@ -3,7 +3,7 @@ import streamlit as st
 import streamlit.components.v1 as components
 import matplotlib.pyplot as plt
 
-df = pd.read_csv("/mnt/data/csvsinnan.csv")
+df = pd.read_csv("csvsinnan.csv")
 st.title("Salud mental en trabajo remoto")
 
 # Personalización de la barra lateral
