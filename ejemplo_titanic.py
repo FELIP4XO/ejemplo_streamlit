@@ -26,7 +26,7 @@ with st.sidebar:
 tipo_grafico = st.radio("Selecciona el tipo de gráfico", ["Barras", "Histograma"])
 
 # Lista de columnas específicas permitidas para el histograma
-columnas_histograma_permitidas = ['age', 'Years_of_Experience', 'Hours_Worked_Per_Week']
+columnas_histograma_permitidas = ['Age', 'Years_of_Experience', 'Hours_Worked_Per_Week']
 
 # Columnas para gráficos
 columnas_numericas = df.select_dtypes(include=['float64', 'int64']).columns.tolist()
