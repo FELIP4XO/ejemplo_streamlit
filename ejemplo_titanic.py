@@ -2,7 +2,8 @@ import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
 import streamlit.components.v1 as components
-import plotly.express as px
+
+
 df = pd.read_csv("csvsinnan.csv")
 st.title("Salud mental en trabajo remoto")
 st.markdown("""
@@ -150,23 +151,6 @@ st.markdown("Al ver los datos de estrés según dónde trabajamos (oficina, casa
 
 
 
-
-
-
-import subprocess
-import sys
-
-# Verificar si plotly está instalado, e instalarlo si no lo está
-try:
-    import plotly.express as px
-except ImportError:
-    subprocess.check_call([sys.executable, "-m", "pip", "install", "plotly"])
-    import plotly.express as px
-
-# Cargar datos desde el archivo proporcionado
-file_path = "csvsinnan.csv"  # Asegúrate de que el archivo esté en el mismo directorio que este script
-df = pd.read_csv(file_path)
-
 # Columnas seleccionables
 columns_to_use = [
     "Age",
@@ -189,20 +173,29 @@ color = st.selectbox("Selecciona la columna para el color:", columns_to_use, ind
 st.write("### Configuración seleccionada:")
 st.write(f"**Eje X:** {x_axis}, **Eje Y:** {y_axis}, **Tamaño:** {size}, **Color:** {color}")
 
-# Crear gráfico
-fig = px.scatter(
-    df,
-    x=x_axis,
-    y=y_axis,
-    size=size,
-    color=color,
-    hover_data=df.columns,
-    title="Gráfico de Dispersión Interactivo",
-    labels={x_axis: x_axis, y_axis: y_axis},
+# Crear gráfico con Matplotlib
+plt.figure(figsize=(10, 6))
+scatter = plt.scatter(
+    df[x_axis],
+    df[y_axis],
+    s=df[size] * 10,  # Multiplicamos por 10 para hacer los círculos más visibles
+    c=df[color],
+    cmap='viridis',  # Puedes cambiar la paleta de colores
+    alpha=0.6,
+    edgecolor='k'
 )
 
-# Mostrar gráfico
-st.plotly_chart(fig)
+# Etiquetas y título
+plt.xlabel(x_axis)
+plt.ylabel(y_axis)
+plt.title(f'Gráfico de Dispersión: {x_axis} vs {y_axis}')
+
+# Barra de color
+plt.colorbar(scatter, label=color)
+
+# Mostrar gráfico en Streamlit
+st.pyplot(plt)
+
 
 
 
