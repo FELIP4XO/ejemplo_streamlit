@@ -104,6 +104,32 @@ elif tipo_grafico_pastel == "Distribución de roles laborales":
     ax.set_title("Distribución de Roles Laborales")
     st.pyplot(fig)
 
+if "Productivity_Change" not in df.columns or "Work_Location" not in df.columns or "Region" not in df.columns:
+    st.error("El archivo CSV no contiene las columnas necesarias para este gráfico.")
+else:
+    # Título de la app
+    st.title("Gráficos de Líneas: Cambios en Productividad")
+
+    # Seleccionar categoría para filtrar: Ubicación laboral o Región
+    categoria = st.radio("Selecciona la categoría para visualizar cambios en productividad:", ["Work_Location", "Region"])
+
+    # Agrupar los datos por la categoría seleccionada y calcular los promedios de productividad
+    df_agrupado = df.groupby(categoria)['Productivity_Change'].mean().reset_index()
+
+    # Ordenar los datos para un gráfico más claro
+    df_agrupado = df_agrupado.sort_values(by="Productivity_Change")
+
+    # Crear el gráfico de líneas
+    fig, ax = plt.subplots()
+    ax.plot(df_agrupado[categoria], df_agrupado["Productivity_Change"], marker='o', linestyle='-', color='b')
+    ax.set_title(f"Cambios en Productividad según {categoria}", fontsize=16)
+    ax.set_xlabel(categoria, fontsize=12)
+    ax.set_ylabel("Cambio en Productividad (Promedio)", fontsize=12)
+    ax.grid(True)
+    plt.xticks(rotation=45)
+
+    # Mostrar el gráfico en Streamlit
+    st.pyplot(fig)
 
 
 
