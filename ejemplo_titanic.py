@@ -31,9 +31,9 @@ with st.sidebar:
             casil3 = st.checkbox("Otras más")
 
 # Selección de tipo de gráfico
-tipo_grafico = st.radio("Selecciona el tipo de gráfico", ["Barras", "Histograma"])
+tipo_grafico = st.radio("Selecciona el tipo de gráfico", ["Barras", "Histograma", "Líneas", "Dispersión"])
 
-# Columnas para gráficos de barras
+# Columnas para gráficos
 columnas_numericas = df.select_dtypes(include=['float64', 'int64']).columns.tolist()
 columnas_categoricas = df.select_dtypes(include=['object']).columns.tolist()
 
@@ -58,4 +58,30 @@ elif tipo_grafico == "Histograma":
         # Crear histograma
         st.subheader(f"Histograma de {columna_histograma}")
         plt.hist(df[columna_histograma].dropna(), bins=20, color=color_grafico)
+        st.pyplot(plt)
+
+# Si seleccionamos gráfico de líneas
+elif tipo_grafico == "Líneas":
+    columna_x_lineas = st.selectbox("Selecciona la columna para el eje X (Numérica):", columnas_numericas)
+    columna_y_lineas = st.selectbox("Selecciona la columna para el eje Y (Numérica):", columnas_numericas)
+    
+    if columna_x_lineas and columna_y_lineas:
+        # Crear gráfico de líneas
+        st.subheader(f"Gráfico de Líneas: {columna_y_lineas} vs {columna_x_lineas}")
+        plt.plot(df[columna_x_lineas], df[columna_y_lineas], color=color_grafico)
+        plt.xlabel(columna_x_lineas)
+        plt.ylabel(columna_y_lineas)
+        st.pyplot(plt)
+
+# Si seleccionamos gráfico de dispersión
+elif tipo_grafico == "Dispersión":
+    columna_x_dispersion = st.selectbox("Selecciona la columna para el eje X (Numérica):", columnas_numericas)
+    columna_y_dispersion = st.selectbox("Selecciona la columna para el eje Y (Numérica):", columnas_numericas)
+    
+    if columna_x_dispersion and columna_y_dispersion:
+        # Crear gráfico de dispersión
+        st.subheader(f"Gráfico de Dispersión: {columna_y_dispersion} vs {columna_x_dispersion}")
+        plt.scatter(df[columna_x_dispersion], df[columna_y_dispersion], color=color_grafico)
+        plt.xlabel(columna_x_dispersion)
+        plt.ylabel(columna_y_dispersion)
         st.pyplot(plt)
