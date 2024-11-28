@@ -106,5 +106,45 @@ elif informacion_2 == "Datos demográficos de los participantes":
     st.write("Los participantes fueron trabajadores de diversas edades, géneros y niveles de experiencia. La mayoría trabajaba en sectores como tecnología, educación y atención al cliente.")
 
 
+tipo_grafico = st.radio("Selecciona el tipo de gráfico", ["Barras", "Histograma"])
+
+# Lista de columnas específicas permitidas para el histograma
+columnas_histograma_permitidas = ['Age', 'Years_of_Experience', 'Hours_Worked_Per_Week']
+
+columnas_numericas = ["Age", "Years_of_Experience", "Hours_Worked_Per_Week", "Number_of_Virtual_Meetings", 
+                      "Work_Life_Balance_Rating", "Stress_Level", "Productivity_Change", 
+                      "Social_Isolation_Rating", "Satisfaction_with_Remote_Work"]
+
+# Lista de columnas categóricas que podrían ser usadas para el eje X
+columnas_categoricas = ["Gender", "Job_Role", "Work_Location", "Mental_Health_Condition", 
+                        "Access_to_Mental_Health_Resources", "Company_Support_for_Remote_Work", 
+                        "Physical_Activity", "Sleep_Quality"]
+
+
+# --- Si seleccionamos gráfico de barras ---
+if tipo_grafico == "Barras":
+columnas_histograma_disponibles = [col for col in columnas_numericas if col in columnas_histograma_permitidas]
+
+# --- Si seleccionamos gráfico de barras ---
+if tipo_grafico == "Barras":
+    columna_x_barras = st.selectbox("Selecciona la columna para el eje X (Categórica):", columnas_categoricas, key="barras_x")
+    columna_y_barras = st.selectbox("Selecciona la columna para el eje Y (Numérica):", columnas_numericas, key="barras_y")
+    
+    if columna_x_barras and columna_y_barras:
+        # Agrupar por la columna categórica y calcular el promedio para la columna numérica
+        grouped_data = df.groupby(columna_x_barras)[columna_y_barras].mean().sort_values()
+        st.write(grouped_data)
+        
+        # Crear gráfico de barras
+        st.subheader(f"Gráfico de Barras: {columna_y_barras} por {columna_x_barras}")
+        st.bar_chart(grouped_data, color=color_grafico)
+
+elif tipo_grafico == "Histograma":
+    columna_histograma = st.selectbox("Selecciona la columna para el histograma:", columnas_histograma_disponibles, key="histograma")
+    if columna_histograma:
+        # Crear histograma
+        st.subheader(f"Histograma de {columna_histograma}")
+        plt.hist(df[columna_histograma].dropna(), bins=20, color=color_grafico)
+        st.pyplot(plt)
 
 
