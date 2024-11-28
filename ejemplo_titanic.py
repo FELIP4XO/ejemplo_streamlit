@@ -152,6 +152,17 @@ st.markdown("Al ver los datos de estrés según dónde trabajamos (oficina, casa
 
 
 
+
+import subprocess
+import sys
+
+# Verificar si plotly está instalado, e instalarlo si no lo está
+try:
+    import plotly.express as px
+except ImportError:
+    subprocess.check_call([sys.executable, "-m", "pip", "install", "plotly"])
+    import plotly.express as px
+
 # Cargar datos desde el archivo proporcionado
 file_path = "csvsinnan.csv"  # Asegúrate de que el archivo esté en el mismo directorio que este script
 df = pd.read_csv(file_path)
