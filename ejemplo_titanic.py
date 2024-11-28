@@ -106,27 +106,35 @@ elif tipo_grafico_pastel == "Distribución de roles laborales":
 
 
 
-if st.button('Seleccionar Colores para los Niveles de Estrés'):
-    # Mostrar los 3 selectores de color solo cuando se presiona el botón
-    color_grafico_1 = st.color_picker('Selecciona un color para el Nivel de Estrés 1 (Bajo)', '#007bff')
-    color_grafico_2 = st.color_picker('Selecciona un color para el Nivel de Estrés 2 (Moderado)', '#28a745')
-    color_grafico_3 = st.color_picker('Selecciona un color para el Nivel de Estrés 3 (Alto)', '#dc3545')
+# Mostrar los botones para elegir colores
+st.sidebar.header('Selecciona los colores para los Niveles de Estrés')
 
-    # Crear una lista de colores basada en los 3 colores seleccionados
-    colors = [color_grafico_1, color_grafico_2, color_grafico_3]
+color_grafico_1 = st.sidebar.color_picker('Nivel de Estrés 1 (Bajo)', '#007bff')
+color_grafico_2 = st.sidebar.color_picker('Nivel de Estrés 2 (Moderado)', '#28a745')
+color_grafico_3 = st.sidebar.color_picker('Nivel de Estrés 3 (Alto)', '#dc3545')
 
-    # Crear gráfico de barras apiladas
-    fig, ax = plt.subplots(figsize=(10, 6))
-    df_agrupado.plot(kind='bar', stacked=True, ax=ax, color=colors)
+# Crear una lista de colores basada en los 3 colores seleccionados
+colors = [color_grafico_1, color_grafico_2, color_grafico_3]
 
-    # Etiquetas y título
-    ax.set_title("Distribución de Niveles de Estrés según Ubicación Laboral", fontsize=16)
-    ax.set_xlabel("Ubicación Laboral", fontsize=12)
-    ax.set_ylabel("Número de Empleados", fontsize=12)
-    ax.legend(title="Nivel de Estrés", title_fontsize='13', fontsize='11')
+# Crear el gráfico de barras apiladas
+fig, ax = plt.subplots(figsize=(10, 6))
 
-    # Mostrar gráfico
-    st.pyplot(fig)
+# Crear el gráfico de barras apiladas sin agrupamiento (asumiendo que ya están los datos de la columna `Stress_Level`)
+df_pivot = df.pivot_table(index='Work_Location', columns='Stress_Level', aggfunc='size', fill_value=0)
+
+# Crear gráfico de barras apiladas
+df_pivot.plot(kind='bar', stacked=True, ax=ax, color=colors)
+
+# Etiquetas y título del gráfico
+ax.set_title("Distribución de Niveles de Estrés según Ubicación Laboral", fontsize=16)
+ax.set_xlabel("Ubicación Laboral", fontsize=12)
+ax.set_ylabel("Número de Empleados", fontsize=12)
+ax.legend(title="Nivel de Estrés", title_fontsize='13', fontsize='11')
+
+# Mostrar el gráfico
+st.pyplot(fig)
+
+
 
 
 
